@@ -9,20 +9,20 @@ let router = Router()
 router.setDefault(templateEngine: StencilTemplateEngine())
 router.all("/") {
     request, response, next in
+    defer { next() }
     try response.render("home", context: [:])
-    next()
 }
 
 router.get("/staff") {
     request, response, next in
-    response.send("Meet our great team")
-    next()
+    defer { next() }
+    try response.render("staff", context: [:])
 }
 
 router.get("/contact") {
     request, response, next in
-    response.send("Holla at us")
-    next()
+    defer { next() }
+    try response.render("contact", context: [:])
 }
 
 Kitura.addHTTPServer(onPort: 8090, with: router)
